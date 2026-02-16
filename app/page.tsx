@@ -1,45 +1,45 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Header from '@/components/Header'
-import ImageUploader from '@/components/ImageUploader'
-import DetectionResults from '@/components/DetectionResults'
+import { useState } from "react";
+import Header from "@/components/Header";
+import ImageUploader from "@/components/ImageUploader";
+import DetectionResults from "@/components/DetectionResults";
 
 interface Detection {
-  class: string
-  conf: number | null
+  class: string;
+  conf: number | null;
 }
 
 interface PredictionResult {
-  detections: Detection[]
-  imagedetect: string
+  detections: Detection[];
+  imagedetect: string;
 }
 
 export default function Home() {
-  const [result, setResult] = useState<PredictionResult | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [result, setResult] = useState<PredictionResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handlePrediction = (data: PredictionResult) => {
-    setResult(data)
-    setError(null)
-  }
+    setResult(data);
+    setError(null);
+  };
 
   const handleError = (errorMessage: string) => {
-    setError(errorMessage)
-    setResult(null)
-  }
+    setError(errorMessage);
+    setResult(null);
+  };
 
   const handleReset = () => {
-    setResult(null)
-    setError(null)
-    setLoading(false)
-  }
+    setResult(null);
+    setError(null);
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Banner */}
         <div className="mb-8 text-center">
@@ -73,7 +73,7 @@ export default function Home() {
               onError={handleError}
               onLoadingChange={setLoading}
             />
-            
+
             {error && (
               <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-700 text-sm">
@@ -91,10 +91,14 @@ export default function Home() {
               </span>
               ผลการตรวจจับ
             </h2>
-            <DetectionResults result={result} loading={loading} onReset={handleReset} />
+            <DetectionResults
+              result={result}
+              loading={loading}
+              onReset={handleReset}
+            />
           </div>
         </div>
       </main>
     </div>
-  )
+  );
 }
